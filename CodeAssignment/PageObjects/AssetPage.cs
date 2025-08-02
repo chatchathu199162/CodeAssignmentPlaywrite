@@ -9,7 +9,6 @@ namespace AssignementPlaywright.PageObjects
         {
             _page = assertPage;
         }
-    
         public async Task NavigateToAssets()
         {
             await _page.ClickAsync(".dropdown - toggle[tabindex = '-1']");
@@ -53,8 +52,6 @@ namespace AssignementPlaywright.PageObjects
             //Check requstable checkbox
             await _page.CheckAsync("#requestable");
           
-            await _page.SetInputFilesAsync("#image", "wwww.png");
-      
             await _page.ClickAsync("#submit_button");
         }
     }

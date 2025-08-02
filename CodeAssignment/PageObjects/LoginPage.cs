@@ -10,8 +10,6 @@ namespace AssignementPlaywright.PageObjects
         {
             _loginPageModel = page;
         }
-
-
         public async Task LoginAction(string userName , string password)
         {
             await _loginPageModel.GotoAsync("https://demo.snipeitapp.com/login");

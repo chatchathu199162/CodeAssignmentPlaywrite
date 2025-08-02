@@ -35,7 +35,6 @@ public class AssetListPage
         await _page.Keyboard.PressAsync("Enter");
 
     }
-
     private async Task IsSerialNumberInTableAsync(string serialNumber)
     {
         var serialLocator = _page.Locator($"a:has-text(\"{serialNumber}\")");

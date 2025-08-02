@@ -20,8 +20,6 @@ namespace AssignementPlaywright.PageObjects
         private ILocator historytableActionTypeLocator => _page.Locator("table tbody tr:nth-child(1) td:nth-child(4)");
         #endregion
 
-
-
         public async Task VerifyHistoryOfAsset(string assetNumber, string serialNumber, string assetName)
         {
             await NavigateHistory();
@@ -47,7 +45,6 @@ namespace AssignementPlaywright.PageObjects
             await VerifyHistorysOfAsset(assetNumber, serialNumber);
 
         }
-
         private async Task VerifyHistorysOfAsset(string assetNumber, string serialNumber)
         {
             string assetNumberFeildValue = await asssetNumberLocator.InnerTextAsync();
@@ -60,7 +57,6 @@ namespace AssignementPlaywright.PageObjects
             Assert.IsTrue(IsModelVisible);
         }
 
-     
         private async Task ValidateHistoryTableValues(string assetNumber, string serialNumber)
         {
             
