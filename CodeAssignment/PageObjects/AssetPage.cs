@@ -9,50 +9,85 @@ namespace AssignementPlaywright.PageObjects
         {
             _page = assertPage;
         }
+
+        #region Locators
+        private ILocator CreateButton => _page.Locator(".dropdown-toggle[tabindex='-1']");
+        private ILocator CreateAssetOption => _page.Locator("a[href='https://demo.snipeitapp.com/hardware/create']");
+        private ILocator CompanySelectBox => _page.Locator("#select2-company_select-container");
+        private ILocator CompanySelectBoxFirstOption => _page.Locator(".select2-results__option:first-child");
+        private ILocator AssetNumberTextFeild => _page.Locator("#asset_tag");
+        private ILocator SerialNumberTextFeild => _page.Locator("[id='serials[1]']");
+        private ILocator ModelSelectBox => _page.Locator("#select2-model_select_id-container");
+        private ILocator ModelMacbookOption => _page.Locator("li.select2-results__option:has-text('Laptops - Macbook pro 13')");
+        private ILocator StatusSelectBox => _page.Locator("#select2-status_select_id-container");
+        private ILocator ReadyToDeployOption => _page.Locator("li.select2-results__option:has-text('Ready to deploy')");
+        private ILocator UserSelectBox => _page.Locator("#select2-assigned_user_select-container");
+        private ILocator FirstUserOption => _page.Locator(".select2-results__option:first-child");
+        private ILocator NoteTextArea => _page.Locator("#notes");
+        private ILocator LocationSelectBox => _page.Locator("#select2-rtd_location_id_location_select-container");
+        private ILocator FirstLocationOption => _page.Locator(".select2-results__option:first-child");
+        private ILocator RequesterCheckBox => _page.Locator("#requestable");
+        private ILocator SubmitButton => _page.Locator("#submit_button");
+
+        private ILocator DashbordViewAllBox => _page.Locator(".dashboard.small-box.bg-teal");
+
+        #endregion
+
+        #region Selectors
+        private const string CompanyResultsSelector = "#select2-company_select-results";
+        private const string ModelResultsSelector = "#select2-model_select_id-results";
+        #endregion 
+
         public async Task NavigateToAssets()
         {
-            await _page.ClickAsync(".dropdown - toggle[tabindex = '-1']");
+            await CreateButton.ClickAsync();
+            await CreateAssetOption.ClickAsync();
+
         }
 
         public async Task CreateNewAsset(string assetName,string AssetNumber , string serialNumber)
         {
-            await _page.ClickAsync(".dropdown-toggle[tabindex='-1']");
-            await _page.ClickAsync("a[href='https://demo.snipeitapp.com/hardware/create']");
-
-            await _page.ClickAsync("#select2-company_select-container");
+            await NavigateToAssets();
+            await CompanySelectBox.ClickAsync();
             
             //Select company
-            await _page.WaitForSelectorAsync("#select2-company_select-results");
-            await _page.ClickAsync(".select2-results__option:first-child");
+            await _page.WaitForSelectorAsync(CompanyResultsSelector);
+            await CompanySelectBoxFirstOption.ClickAsync();
 
             //Fill AssetNumber and serial number
-            await _page.FillAsync("#asset_tag", AssetNumber);
-            await _page.FillAsync("[id = 'serials[1]']", serialNumber);
+            await AssetNumberTextFeild.FillAsync(AssetNumber);
+            await SerialNumberTextFeild.FillAsync(serialNumber);
 
             //select modle
-            await _page.ClickAsync("#select2-model_select_id-container");
-            await _page.WaitForSelectorAsync("#select2-model_select_id-results");
-            await _page.ClickAsync("li.select2-results__option:has-text('Laptops - Macbook pro 13')");
+            await ModelSelectBox.ClickAsync();
+            await _page.WaitForSelectorAsync(ModelResultsSelector);
+            await ModelMacbookOption.ClickAsync();
 
             //select deploy type
-            await _page.ClickAsync("#select2-status_select_id-container");
-            await _page.ClickAsync("li.select2-results__option:has-text('Ready to deploy')");
+            await StatusSelectBox.ClickAsync();
+            await ReadyToDeployOption.ClickAsync();
 
             await _page.ClickAsync(".btn.btn-default.active");
 
             //select User
-            await _page.ClickAsync("#select2-assigned_user_select-container");
-            await _page.ClickAsync(".select2-results__option:first-child");
-            await _page.FillAsync("#notes", "This is brand new laptop");
+            await UserSelectBox.ClickAsync();
+            await FirstUserOption.ClickAsync();
+
+            await NoteTextArea.FillAsync("This is brand new laptop");
 
             //Select location
-            await _page.ClickAsync("#select2-rtd_location_id_location_select-container");
-            await _page.ClickAsync(".select2-results__option:first-child");
+            await LocationSelectBox.ClickAsync();
+            await FirstLocationOption.ClickAsync();
 
             //Check requstable checkbox
-            await _page.CheckAsync("#requestable");
+            await RequesterCheckBox.CheckAsync();
           
-            await _page.ClickAsync("#submit_button");
+            await SubmitButton.ClickAsync();
+        }
+
+        public async Task<bool> IsSuccessFullyCreateAsset()
+        {
+            return await DashbordViewAllBox.IsVisibleAsync();
         }
     }
 }

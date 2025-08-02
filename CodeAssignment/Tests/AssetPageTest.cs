@@ -9,6 +9,7 @@ namespace AssignementPlaywright.Tests
         {
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
+            Assert.IsTrue(await assetPage.IsSuccessFullyCreateAsset());
         }
 
         [Test]

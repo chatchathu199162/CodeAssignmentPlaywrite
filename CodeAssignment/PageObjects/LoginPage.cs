@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AssignementPlaywright.PageObjects
 {
@@ -10,13 +11,30 @@ namespace AssignementPlaywright.PageObjects
         {
             _loginPageModel = page;
         }
+        private ILocator EmailInput => _loginPageModel.Locator("[name='username']");
+        private ILocator PasswordInput => _loginPageModel.Locator("#password");
+        private ILocator LoginButton => _loginPageModel.Locator("button[type='submit']");
+
+        private ILocator SuccessLoginMessage => _loginPageModel.Locator(".pull-left.pagetitle");
+        private ILocator FailedLoginMessage => _loginPageModel.Locator(".alert.alert.alert-danger.fade.in");
         public async Task LoginAction(string userName , string password)
         {
             await _loginPageModel.GotoAsync("https://demo.snipeitapp.com/login");
-            await _loginPageModel.FillAsync("[name='username']", userName);
-            await _loginPageModel.FillAsync("#password", password);
-            await _loginPageModel.ClickAsync("button[type='submit']");
+            await EmailInput.FillAsync(userName);
+            await PasswordInput.FillAsync(password);
+            await LoginButton.ClickAsync();
             await _loginPageModel.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
         }
+
+        public async Task<bool> IsValidLogin() {
+           return await  SuccessLoginMessage.IsVisibleAsync();
+        }
+
+
+        public async Task<bool> IsInValidLogin()
+        {
+            return await FailedLoginMessage.IsVisibleAsync();
+        }
+
     }
 }
