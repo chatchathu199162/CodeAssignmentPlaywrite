@@ -33,8 +33,8 @@ public class AssetListPage
     {
         await SearchBox.FillAsync(serialNumber);
         await _page.Keyboard.PressAsync("Enter");
-
     }
+
     public async Task<bool> IsSerialNumberInTableAsync(string serialNumber)
     {
         var serialLocator = _page.Locator($"a:has-text(\"{serialNumber}\")");

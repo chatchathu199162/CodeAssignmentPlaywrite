@@ -41,7 +41,6 @@ namespace AssignementPlaywright.PageObjects
         {
             await CreateButton.ClickAsync();
             await CreateAssetOption.ClickAsync();
-
         }
 
         public async Task CreateNewAsset(string assetName,string AssetNumber , string serialNumber)
@@ -66,7 +65,7 @@ namespace AssignementPlaywright.PageObjects
             await StatusSelectBox.ClickAsync();
             await ReadyToDeployOption.ClickAsync();
 
-            await _page.ClickAsync(".btn.btn-default.active");
+           // await _page.ClickAsync(".btn.btn-default.active");
 
             //select User
             await UserSelectBox.ClickAsync();

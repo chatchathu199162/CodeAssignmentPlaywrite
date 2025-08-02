@@ -20,8 +20,6 @@ namespace AssignementPlaywright.PageObjects
         private ILocator HistorytableActionTypeLocator => _page.Locator("table tbody tr:nth-child(1) td:nth-child(4)");
         #endregion
 
-    
-
         private async Task NaviagetAssetDetails(string serialNumber)
         {
             var assetDetailsSelector = _page.Locator($"a:has-text(\"{serialNumber}\")");

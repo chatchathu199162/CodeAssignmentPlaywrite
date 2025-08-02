@@ -11,12 +11,16 @@ namespace AssignementPlaywright.PageObjects
         {
             _loginPageModel = page;
         }
+
+        #region Locators
         private ILocator UserNameInput => _loginPageModel.Locator("[name='username']");
         private ILocator PasswordInput => _loginPageModel.Locator("#password");
         private ILocator LoginButton => _loginPageModel.Locator("button[type='submit']");
-
         private ILocator SuccessLoginMessage => _loginPageModel.Locator(".pull-left.pagetitle");
         private ILocator FailedLoginMessage => _loginPageModel.Locator(".alert.alert.alert-danger.fade.in");
+
+        #endregion
+
         public async Task LoginAction(string userName , string password)
         {
             await _loginPageModel.GotoAsync("https://demo.snipeitapp.com/login");
@@ -29,7 +33,6 @@ namespace AssignementPlaywright.PageObjects
         public async Task<bool> IsValidLogin() {
            return await  SuccessLoginMessage.IsVisibleAsync();
         }
-
 
         public async Task<bool> IsInValidLogin()
         {
