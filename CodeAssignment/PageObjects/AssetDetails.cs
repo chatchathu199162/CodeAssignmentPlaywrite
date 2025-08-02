@@ -23,7 +23,7 @@ namespace AssignementPlaywright.PageObjects
         public async Task VerifyHistoryOfAsset(string assetNumber, string serialNumber, string assetName)
         {
             await NavigateHistory();
-            await ValidateHistoryTableValues(assetNumber, serialNumber);
+            await ValidateHistoryTableValues(assetNumber, serialNumber, assetName);
         }
 
         private async Task NaviagetAssetDetails(string serialNumber)
@@ -57,13 +57,13 @@ namespace AssignementPlaywright.PageObjects
             Assert.IsTrue(IsModelVisible);
         }
 
-        private async Task ValidateHistoryTableValues(string assetNumber, string serialNumber)
+        private async Task ValidateHistoryTableValues(string assetNumber, string serialNumber, string assetName)
         {
             
             await historytableAssetColumnLocator.WaitForAsync();
             string assetNumberLocatorValue = await historytableAssetColumnLocator.InnerTextAsync();
             Assert.IsTrue(assetNumberLocatorValue.Contains(assetNumber));
-            Assert.IsTrue(assetNumberLocatorValue.Contains("Macbook"));
+            Assert.IsTrue(assetNumberLocatorValue.Contains(assetName));
 
             await historytableActionTypeLocator.WaitForAsync();
             string actionValue = await historytableActionTypeLocator.InnerTextAsync();

@@ -11,7 +11,7 @@ namespace AssignementPlaywright
         public IPage _page { get; set; } = default!;
         private IPlaywright _playwriteObject { get; set; } = default!;
 
-        public  string _assetName = "Mac book Pro 2023";
+        public  string _assetName = "Macbook Pro 2023";
         public string _userName = "admin";
         public string _password = "password";
 
