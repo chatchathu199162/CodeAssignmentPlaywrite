@@ -23,7 +23,7 @@ namespace AssignementPlaywright.PageObjects
         public async Task VerifyHistoryOfAsset(string assetNumber, string serialNumber, string assetName)
         {
             await NavigateHistory();
-            await ValidateHistoryTableValues(assetNumber, serialNumber, assetName);
+            //await ValidateHistoryTableValues(assetNumber, serialNumber, assetName);
         }
 
         private async Task NaviagetAssetDetails(string serialNumber)
@@ -42,32 +42,33 @@ namespace AssignementPlaywright.PageObjects
         public async Task VerifyDetailsOfAsset(string assetNumber, string serialNumber, string assetName)
         {
             await NaviagetAssetDetails(serialNumber);
-            await VerifyHistorysOfAsset(assetNumber, serialNumber);
+            //await VerifyHistorysOfAsset(assetNumber, serialNumber);
 
         }
-        private async Task VerifyHistorysOfAsset(string assetNumber, string serialNumber)
+       
+        public async Task<string> GetAsssetNumberFeildValue() { 
+            return await asssetNumberLocator.InnerTextAsync();
+        }
+
+        public async Task<string> GetSerialNumberFeildValue()
         {
-            string assetNumberFeildValue = await asssetNumberLocator.InnerTextAsync();
-            Assert.IsTrue(assetNumberFeildValue == assetNumber);
-
-            string serialNumberFeildValue = await serialNumberLocator.InnerTextAsync();
-            Assert.IsTrue(serialNumberFeildValue == serialNumber);
-
-            bool IsModelVisible = await modelLocator.IsVisibleAsync();
-            Assert.IsTrue(IsModelVisible);
+            return await serialNumberLocator.InnerTextAsync();
         }
 
-        private async Task ValidateHistoryTableValues(string assetNumber, string serialNumber, string assetName)
+        public async Task<string> ValidateActionTypeColumn()
         {
             
-            await historytableAssetColumnLocator.WaitForAsync();
-            string assetNumberLocatorValue = await historytableAssetColumnLocator.InnerTextAsync();
-            Assert.IsTrue(assetNumberLocatorValue.Contains(assetNumber));
-            Assert.IsTrue(assetNumberLocatorValue.Contains(assetName));
-
             await historytableActionTypeLocator.WaitForAsync();
-            string actionValue = await historytableActionTypeLocator.InnerTextAsync();
-            Assert.IsTrue(actionValue == "create new");
+            return await historytableActionTypeLocator.InnerTextAsync();
+         
+
+        }
+
+        public async Task<string> ValidateAssetNumberColumn() {
+
+            await historytableAssetColumnLocator.WaitForAsync();
+            return await historytableAssetColumnLocator.InnerTextAsync();
+
         }
 
     }

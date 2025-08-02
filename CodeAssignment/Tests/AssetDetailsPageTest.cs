@@ -1,4 +1,7 @@
 ﻿
+using AssignementPlaywright.PageObjects;
+using System.Security.Cryptography.X509Certificates;
+
 namespace AssignementPlaywright.Tests
 {
     internal class AssetDetailsPageTest: PlaywriteTestBaseSetUp
@@ -8,8 +11,14 @@ namespace AssignementPlaywright.Tests
         {
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
-            await assetList.ViewAssets(_serialNumber);
+            await assetList.ViewAssetsList(_serialNumber);
             await assetDetails.VerifyDetailsOfAsset(_assetNumber, _serialNumber, _assetName);
+
+            string assetNumberFieldValue = await assetDetails.GetAsssetNumberFeildValue();
+            string serialNumberFieldValue = await assetDetails.GetSerialNumberFeildValue();
+
+            Assert.IsTrue(assetNumberFieldValue == _assetNumber);
+            Assert.IsTrue(serialNumberFieldValue == _serialNumber);
         }
 
         [Test]
@@ -17,9 +26,16 @@ namespace AssignementPlaywright.Tests
         {
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
-            await assetList.ViewAssets(_serialNumber);
+            await assetList.ViewAssetsList(_serialNumber);
             await assetDetails.VerifyDetailsOfAsset(_assetNumber, _serialNumber, _assetName);
             await assetDetails.VerifyHistoryOfAsset(_assetNumber, _serialNumber, "Macbook");
+
+            string assetNumberlNumberColumn = await assetDetails.ValidateAssetNumberColumn();
+            string itemCreateStatus = await assetDetails.ValidateActionTypeColumn();
+
+            Assert.IsTrue(assetNumberlNumberColumn.Contains(_assetNumber));
+            Assert.IsTrue(assetNumberlNumberColumn.Contains("Macbook"));
+            Assert.IsTrue(itemCreateStatus == "create new");
         }
 
 

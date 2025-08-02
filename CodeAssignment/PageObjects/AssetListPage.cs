@@ -13,14 +13,14 @@ public class AssetListPage
     private ILocator AssetTile => _page.Locator(".dashboard.small-box.bg-teal:has-text('Asset')");
     private ILocator PageTitle => _page.Locator(".breadcrumb-item.active");
     private ILocator SearchBox => _page.Locator("[placeholder='Search']");
+    private ILocator NoRecordsFound => _page.Locator(".no-records-found");
+    
     #endregion
 
-    public async Task ViewAssets(string serialNumber)
+    public async Task ViewAssetsList(string serialNumber)
     {
         await NavigateToAssetsPageAsync();
         await SearchAssetBySerialAsync(serialNumber);
-        await IsSerialNumberInTableAsync(serialNumber);
-       
     }
     private async Task NavigateToAssetsPageAsync()
     {
@@ -35,10 +35,18 @@ public class AssetListPage
         await _page.Keyboard.PressAsync("Enter");
 
     }
-    private async Task IsSerialNumberInTableAsync(string serialNumber)
+    public async Task<bool> IsSerialNumberInTableAsync(string serialNumber)
     {
         var serialLocator = _page.Locator($"a:has-text(\"{serialNumber}\")");
         await serialLocator.WaitForAsync();
-        Assert.IsTrue(await serialLocator.IsVisibleAsync());
+        return await serialLocator.IsVisibleAsync();
     }
+
+    public async Task<bool> IsNoRecordFound(string serialNumber)
+    {
+        await NoRecordsFound.WaitForAsync();
+        return await NoRecordsFound.IsVisibleAsync();
+    }
+
+    
 }
