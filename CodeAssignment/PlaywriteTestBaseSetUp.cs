@@ -19,7 +19,7 @@ namespace AssignementPlaywright
         public LoginPage loginPage;
         public AssetPage assetPage;
         public AssetListPage assetList;
-        public AssetDetails assetDetails;
+        public AssetDetailsPage assetDetails;
         public string _serialNumber;
         public string _assetNumber;
 
@@ -41,7 +41,7 @@ namespace AssignementPlaywright
             loginPage = new LoginPage(_page);
             assetPage = new AssetPage(_page);
             assetList = new AssetListPage(_page);
-            assetDetails = new AssetDetails(_page);
+            assetDetails = new AssetDetailsPage(_page);
         }
 
         [TearDown]

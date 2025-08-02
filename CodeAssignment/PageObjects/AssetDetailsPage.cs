@@ -2,11 +2,11 @@
 
 namespace AssignementPlaywright.PageObjects
 {
-    public class AssetDetails
+    public class AssetDetailsPage
     {
         private IPage _page;
 
-        public AssetDetails(IPage page)
+        public AssetDetailsPage(IPage page)
         {
             _page = page;
         }
