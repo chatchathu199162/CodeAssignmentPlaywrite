@@ -7,7 +7,7 @@ namespace AssignementPlaywright.Tests
     internal class AssetDetailsPageTest: PlaywriteTestBaseSetUp
     {
         [Test]
-        public async Task VerifyAssetDetailsTest()
+        public async Task VerifyAssetDetailsTest_ShouldVisibleSavedInfo_Success()
         {
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
@@ -25,7 +25,7 @@ namespace AssignementPlaywright.Tests
         }
 
         [Test]
-        public async Task VerifyAssetHistoryTest()
+        public async Task VerifyAssetHistory_ShouldVisibletheSavedInfo_Success()
         {
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
