@@ -11,7 +11,7 @@ namespace AssignementPlaywright.PageObjects
         {
             _loginPageModel = page;
         }
-        private ILocator EmailInput => _loginPageModel.Locator("[name='username']");
+        private ILocator UserNameInput => _loginPageModel.Locator("[name='username']");
         private ILocator PasswordInput => _loginPageModel.Locator("#password");
         private ILocator LoginButton => _loginPageModel.Locator("button[type='submit']");
 
@@ -20,7 +20,7 @@ namespace AssignementPlaywright.PageObjects
         public async Task LoginAction(string userName , string password)
         {
             await _loginPageModel.GotoAsync("https://demo.snipeitapp.com/login");
-            await EmailInput.FillAsync(userName);
+            await UserNameInput.FillAsync(userName);
             await PasswordInput.FillAsync(password);
             await LoginButton.ClickAsync();
             await _loginPageModel.WaitForLoadStateAsync(LoadState.DOMContentLoaded);

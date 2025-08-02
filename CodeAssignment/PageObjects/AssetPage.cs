@@ -28,7 +28,6 @@ namespace AssignementPlaywright.PageObjects
         private ILocator FirstLocationOption => _page.Locator(".select2-results__option:first-child");
         private ILocator RequesterCheckBox => _page.Locator("#requestable");
         private ILocator SubmitButton => _page.Locator("#submit_button");
-
         private ILocator DashbordViewAllBox => _page.Locator(".dashboard.small-box.bg-teal");
 
         #endregion

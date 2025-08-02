@@ -12,6 +12,7 @@ namespace AssignementPlaywright.Tests
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
             await assetList.ViewAssetsList(_serialNumber);
+
             await assetDetails.NaviagetAssetDetails(_assetNumber, _serialNumber, _assetName);
 
             string assetNumberFieldValue = await assetDetails.GetAsssetNumberFeildValue();
@@ -29,8 +30,9 @@ namespace AssignementPlaywright.Tests
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
             await assetList.ViewAssetsList(_serialNumber);
+          
             await assetDetails.NaviagetAssetDetails(_assetNumber, _serialNumber, _assetName);
-            await assetDetails.VerifyHistoryOfAsset(_assetNumber, _serialNumber, "Macbook");
+            await assetDetails.NavigateHistoryTab();
 
             string assetNumberlNumberColumn = await assetDetails.ValidateAssetNumberColumn();
             string itemCreateStatus = await assetDetails.ValidateActionTypeColumn();
@@ -39,10 +41,5 @@ namespace AssignementPlaywright.Tests
             Assert.IsTrue(assetNumberlNumberColumn.Contains("Macbook"));
             Assert.IsTrue(itemCreateStatus == "create new");
         }
-
-
-
-
-
     }
 }
