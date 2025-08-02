@@ -12,13 +12,15 @@ namespace AssignementPlaywright.Tests
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
             await assetList.ViewAssetsList(_serialNumber);
-            await assetDetails.VerifyDetailsOfAsset(_assetNumber, _serialNumber, _assetName);
+            await assetDetails.NaviagetAssetDetails(_assetNumber, _serialNumber, _assetName);
 
             string assetNumberFieldValue = await assetDetails.GetAsssetNumberFeildValue();
             string serialNumberFieldValue = await assetDetails.GetSerialNumberFeildValue();
+            bool isMackbookproType = await assetDetails.ValidateLaptopTypeColumnAsMacBook13();
 
             Assert.IsTrue(assetNumberFieldValue == _assetNumber);
             Assert.IsTrue(serialNumberFieldValue == _serialNumber);
+            Assert.IsTrue(isMackbookproType);
         }
 
         [Test]
@@ -27,7 +29,7 @@ namespace AssignementPlaywright.Tests
             await loginPage.LoginAction(_userName, _password);
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
             await assetList.ViewAssetsList(_serialNumber);
-            await assetDetails.VerifyDetailsOfAsset(_assetNumber, _serialNumber, _assetName);
+            await assetDetails.NaviagetAssetDetails(_assetNumber, _serialNumber, _assetName);
             await assetDetails.VerifyHistoryOfAsset(_assetNumber, _serialNumber, "Macbook");
 
             string assetNumberlNumberColumn = await assetDetails.ValidateAssetNumberColumn();

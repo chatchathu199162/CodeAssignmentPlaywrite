@@ -12,7 +12,7 @@ namespace AssignementPlaywright.PageObjects
         }
 
         #region Locators
-        private ILocator modelLocator => _page.Locator("a[href=\"https://demo.snipeitapp.com/models/1\"]:has-text('Macbook Pro 13')");
+        private ILocator MacBookLapTopType => _page.Locator("a[href=\"https://demo.snipeitapp.com/models/1\"]:has-text('Macbook Pro 13')");
         private ILocator asssetNumberLocator => _page.Locator(".js-copy-assettag");
         private ILocator serialNumberLocator => _page.Locator(".js-copy-serial");
         private ILocator histroyTabLocator => _page.Locator("a[href='#history']");
@@ -39,11 +39,9 @@ namespace AssignementPlaywright.PageObjects
             await histroyTabLocator.ClickAsync();
         }
 
-        public async Task VerifyDetailsOfAsset(string assetNumber, string serialNumber, string assetName)
+        public async Task NaviagetAssetDetails(string assetNumber, string serialNumber, string assetName)
         {
             await NaviagetAssetDetails(serialNumber);
-            //await VerifyHistorysOfAsset(assetNumber, serialNumber);
-
         }
        
         public async Task<string> GetAsssetNumberFeildValue() { 
@@ -57,18 +55,19 @@ namespace AssignementPlaywright.PageObjects
 
         public async Task<string> ValidateActionTypeColumn()
         {
-            
             await historytableActionTypeLocator.WaitForAsync();
             return await historytableActionTypeLocator.InnerTextAsync();
-         
-
         }
 
         public async Task<string> ValidateAssetNumberColumn() {
 
             await historytableAssetColumnLocator.WaitForAsync();
             return await historytableAssetColumnLocator.InnerTextAsync();
+        }
 
+        public async Task<bool> ValidateLaptopTypeColumnAsMacBook13()
+        {
+            return await MacBookLapTopType.IsVisibleAsync();
         }
 
     }
