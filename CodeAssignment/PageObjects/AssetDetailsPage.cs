@@ -20,7 +20,7 @@ namespace AssignementPlaywright.PageObjects
         private ILocator HistorytableActionTypeLocator => _page.Locator("table tbody tr:nth-child(1) td:nth-child(4)");
         #endregion
 
-        private async Task NaviagetAssetDetails(string serialNumber)
+        public async Task NaviagetAssetDetails(string serialNumber)
         {
             var assetDetailsSelector = _page.Locator($"a:has-text(\"{serialNumber}\")");
             await assetDetailsSelector.WaitForAsync();
@@ -33,11 +33,6 @@ namespace AssignementPlaywright.PageObjects
             await HistroyTabLocator.ClickAsync();
         }
 
-        public async Task NaviagetAssetDetails(string assetNumber, string serialNumber, string assetName)
-        {
-            await NaviagetAssetDetails(serialNumber);
-        }
-       
         public async Task<string> GetAsssetNumberFeildValue() { 
             return await AsssetNumberLocator.InnerTextAsync();
         }

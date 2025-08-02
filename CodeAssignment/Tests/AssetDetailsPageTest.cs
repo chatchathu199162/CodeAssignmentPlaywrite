@@ -13,7 +13,7 @@ namespace AssignementPlaywright.Tests
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
             await assetList.ViewAssetsList(_serialNumber);
 
-            await assetDetails.NaviagetAssetDetails(_assetNumber, _serialNumber, _assetName);
+            await assetDetails.NaviagetAssetDetails(_serialNumber);
 
             string assetNumberFieldValue = await assetDetails.GetAsssetNumberFeildValue();
             string serialNumberFieldValue = await assetDetails.GetSerialNumberFeildValue();
@@ -31,7 +31,7 @@ namespace AssignementPlaywright.Tests
             await assetPage.CreateNewAsset(_assetName, _assetNumber, _serialNumber);
             await assetList.ViewAssetsList(_serialNumber);
           
-            await assetDetails.NaviagetAssetDetails(_assetNumber, _serialNumber, _assetName);
+            await assetDetails.NaviagetAssetDetails(_serialNumber);
             await assetDetails.NavigateHistoryTab();
 
             string assetNumberlNumberColumn = await assetDetails.ValidateAssetNumberColumn();
